@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -117,4 +120,32 @@ public class location extends AppCompatActivity {
     public void btn(View view) {
         updateGPS();
     }
+
+    public boolean onCreateOptionsMenu (Menu menu){
+
+        getMenuInflater().inflate(R.menu.main,menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected (MenuItem item){
+        String st = item.getTitle().toString();
+        if (st.equals("registration")) {
+            Intent si = new Intent(this, MainActivity.class);
+            startActivity(si);
+        }
+        if (st.equals("location")) {
+            Intent si = new Intent(this, location.class);
+            startActivity(si);
+        }
+        if (st.equals("message")){
+            Intent si = new Intent(this, message.class);
+            startActivity(si);
+        }
+        if (st.equals("image")){
+            Intent si = new Intent(this, pic.class);
+            startActivity(si);
+        }
+        return true;
+    }
+
 }

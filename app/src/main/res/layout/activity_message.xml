@@ -26,25 +26,26 @@
             android:layout_weight="30"/>
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/num"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="8"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Enter Your Cell Number" />
+            android:inputType="phone"
+            android:hint="Enter A Cell Number" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="4"/>
 
-        <TextView
-            android:id="@+id/textView"
+        <EditText
+            android:id="@+id/msg"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="8"
-            android:text="HERE YOUR MESSAGE WILL APEAR" />
+            android:ems="10"
+            android:hint="Write A Message" />
 
         <Space
             android:layout_width="match_parent"
@@ -52,11 +53,12 @@
             android:layout_weight="4"/>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/sndbtn"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="6"
-            android:text="send" />
+            android:text="send"
+            android:onClick="onSend"/>
 
         <Space
             android:layout_width="match_parent"

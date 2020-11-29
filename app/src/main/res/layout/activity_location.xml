@@ -30,7 +30,7 @@
             android:layout_height="0dp"
             android:layout_weight="8"
             android:textSize="20dp"
-            android:text="קווי רוחב" />
+            android:text="Latitudes" />
 
         <Space
             android:layout_width="match_parent"
@@ -43,7 +43,7 @@
             android:layout_height="0dp"
             android:layout_weight="8"
             android:textSize="20dp"
-            android:text="קווי אורך" />
+            android:text="Longitudes" />
 
         <Space
             android:layout_width="match_parent"
@@ -55,7 +55,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="6"
-            android:text="מצא נקודת ציון" />
+            android:onClick="btn"
+            android:text="find Landmarks" />
 
         <Space
             android:layout_width="match_parent"
