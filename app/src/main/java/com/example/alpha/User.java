@@ -1,12 +1,28 @@
 package com.example.alpha;
 
+/**
+ * a user class
+ * contains all of the data required for a user.
+ */
 public class User {
     private String mail, pass, uid, image;
 
+    /**
+     * an empty builder.
+     * this function is not used, but is required in order to use Firebase.
+     */
     public User(){
 
     }
 
+    /**
+     * User class builder.
+     * this function gets all of the variables that are required in order to assemble a user
+     * @param mail
+     * @param pass
+     * @param uid
+     * @param image
+     */
     public User(String mail, String pass, String uid, String image){
         this.mail=mail;
         this.pass=pass;
