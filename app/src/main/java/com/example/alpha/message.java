@@ -20,6 +20,9 @@ import android.widget.Toast;
 
 import java.util.regex.Pattern;
 
+/**
+ * this activity sends sms to the written number (which the user chose), a message (that the user wrote).
+ */
 public class message extends AppCompatActivity {
     final int SEND_SMS_PERMISSION_REQUEST_CODE = 55555;
     Button sendBtn;
@@ -32,10 +35,16 @@ public class message extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
 
+        /*
+        give each UI variable a value
+         */
         num = (EditText) findViewById(R.id.num);
         msg = (EditText) findViewById(R.id.msg);
         sendBtn = (Button) findViewById(R.id.sndbtn);
 
+        /**
+         * this method checks for permission to send a message
+         */
         sendBtn.setEnabled(false);
         if (checkPermission(Manifest.permission.SEND_SMS)) {
             sendBtn.setEnabled(true);
@@ -44,6 +53,11 @@ public class message extends AppCompatActivity {
         }
     }
 
+    /**
+     * when button is clicked, it checks if the data the user inserted is correct and if nothing is missing
+     * the method brings up toast accordingly
+     * @param v
+     */
     public void onSend(View v) {
         phoneNo = num.getText().toString();
         message = msg.getText().toString();
@@ -63,23 +77,33 @@ public class message extends AppCompatActivity {
     }}
 
 
+    /**
+     * this method checks for permission to send a message
+     */
     public boolean checkPermission(String permission){
         int check=ContextCompat.checkSelfPermission(this,permission);
         return(check==PackageManager.PERMISSION_GRANTED);
     }
 
+
+    /**
+     * this function creates the menu options
+     * @param menu
+     * @return
+     */
     public boolean onCreateOptionsMenu (Menu menu){
 
         getMenuInflater().inflate(R.menu.main,menu);
         return true;
     }
 
+    /**
+     * this function gets the user's choice from the menu and sends him to the appropriate activity
+     * @param item
+     * @return
+     */
     public boolean onOptionsItemSelected (MenuItem item){
         String st = item.getTitle().toString();
-        if (st.equals("registration")) {
-            Intent si = new Intent(this, MainActivity.class);
-            startActivity(si);
-        }
         if (st.equals("location")) {
             Intent si = new Intent(this, location.class);
             startActivity(si);

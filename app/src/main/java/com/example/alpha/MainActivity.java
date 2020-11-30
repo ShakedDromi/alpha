@@ -1,9 +1,16 @@
 package com.example.alpha;
 
+/**
+ * @author Shaked Dromi
+ * @version alpha
+ * @since 30/11/2020
+ */
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,22 +25,63 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * this activity creats a new user in the Firebase (with mail, password and uid)
+ */
 public class MainActivity extends AppCompatActivity {
-    String userMail="", userPass="";
+    String userMail="", userPass="", uid="";
     EditText mail,pass;
     private FirebaseAuth mAuth;
+    Boolean stayConnect, firstRun=true,isUID=false, registered=false;
+    public static FirebaseDatabase FBDB = FirebaseDatabase.getInstance();
+    public static DatabaseReference refUsers= FBDB.getReference("Users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*
+        give each UI variable a value
+         */
         mail=(EditText)findViewById(R.id.mail);
         pass=(EditText)findViewById(R.id.pass);
         mAuth = FirebaseAuth.getInstance();
+
+        SharedPreferences settings=getSharedPreferences("PREFS_NAME",MODE_PRIVATE);
+        firstRun=settings.getBoolean("firstRun",true);
+        stayConnect = false;
+
+        /**
+         * this method checks if this is the first run on the user's device
+         * if so, it sends the user strait to the registration activity(main activity)
+         * if not, it sends him to the location activity
+         */
+        if (firstRun) {
+            isUID=false;
+            onVerificationStateChanged();
+            regOption();
+        }
+        else {
+            isUID=true;
+            registered = true;
+            onVerificationStateChanged();
+            Intent si = new Intent(MainActivity.this, location.class);
+            startActivity(si);        }
     }
-   @Override
+
+    private void regOption() {
+        isUID=false;
+        registered=false;
+    }
+
+    private void onVerificationStateChanged() {
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
@@ -41,9 +89,14 @@ public class MainActivity extends AppCompatActivity {
         updateUI(currentUser);
     }
 
-        private void updateUI(FirebaseUser currentUser){
-        }
+    private void updateUI(FirebaseUser currentUser){
+    }
 
+    /**
+     * when register button is pressed, check if both fields are correct.
+     * make a toast accordingly.
+     * @param view
+     */
     public void register(View view) {
             userMail=mail.getText().toString();
             userPass=pass.getText().toString();
@@ -61,7 +114,14 @@ public class MainActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             //   Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            uid = user.getUid();
                             updateUI(user);
+                            String image="empty";
+                          //  userdb = new User
+                            if (!isUID) {
+                                User userdb=new User(userMail, userPass, uid, image);
+                                refUsers.child(uid).setValue(userdb);
+                            }
                             Intent si = new Intent(MainActivity.this, location.class);
                             startActivity(si);
                         } else {
@@ -71,39 +131,8 @@ public class MainActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
-
-                        // ...
                     }
                 });
             }
         }
-//    }
-
-
-    public boolean onCreateOptionsMenu (Menu menu){
-
-        getMenuInflater().inflate(R.menu.main,menu);
-        return true;
-    }
-
-    public boolean onOptionsItemSelected (MenuItem item){
-        String st = item.getTitle().toString();
-        if (st.equals("registration")) {
-            Intent si = new Intent(this, MainActivity.class);
-            startActivity(si);
-        }
-        if (st.equals("location")) {
-            Intent si = new Intent(this, location.class);
-            startActivity(si);
-        }
-        if (st.equals("message")){
-            Intent si = new Intent(this, message.class);
-            startActivity(si);
-        }
-        if (st.equals("image")){
-            Intent si = new Intent(this, pic.class);
-            startActivity(si);
-        }
-        return true;
-    }
 }

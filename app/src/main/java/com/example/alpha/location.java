@@ -21,6 +21,9 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+/**
+ * this activity finds the user's current landmarks, after getting permission to access his location.
+ */
 public class location extends AppCompatActivity {
     public static final int PERMISSIONS_FINE_LOCATION = 99;
 
@@ -121,18 +124,25 @@ public class location extends AppCompatActivity {
         updateGPS();
     }
 
+
+    /**
+     * this function creates the menu options
+     * @param menu
+     * @return
+     */
     public boolean onCreateOptionsMenu (Menu menu){
 
         getMenuInflater().inflate(R.menu.main,menu);
         return true;
     }
 
+    /**
+     * this function gets the user's choice from the menu and sends him to the appropriate activity
+     * @param item
+     * @return
+     */
     public boolean onOptionsItemSelected (MenuItem item){
         String st = item.getTitle().toString();
-        if (st.equals("registration")) {
-            Intent si = new Intent(this, MainActivity.class);
-            startActivity(si);
-        }
         if (st.equals("location")) {
             Intent si = new Intent(this, location.class);
             startActivity(si);

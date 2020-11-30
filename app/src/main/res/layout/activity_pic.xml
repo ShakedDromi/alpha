@@ -6,36 +6,55 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:gravity="center"
+    android:backgroundTint="#ffffff"
     tools:context=".pic">
 
 
     <Space
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="25" />
+        android:layout_weight="15" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="50"
+        android:layout_weight="70"
         android:orientation="vertical">
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="30"/>
+            android:layout_weight="19"/>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/updimg"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="30"
-            android:text="Button" />
+            android:layout_weight="6"
+            android:text="update image"
+            android:onClick="strg"/>
 
-</LinearLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6" />
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="50"
+            app:srcCompat="@drawable/alphapic" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="19" />
+
+    </LinearLayout>
 
     <Space
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="15" />
 </LinearLayout>
